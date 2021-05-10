@@ -3,6 +3,7 @@ public class SampleApex {
         Account[] Acclist=[select id, name from Account Limit 10];
         for(Account acc : Acclist){
             system.debug('Account name: '+acc.Name);
+            //adding a comment
         }
     }
 

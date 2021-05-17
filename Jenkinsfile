@@ -38,7 +38,7 @@ node {
 			
 			// need to pull out assigned username
 			if (isUnix()) {
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -d manifest/. -u ${HUB_ORG}"
+				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -u ${HUB_ORG} -p force-app -w 60"
 			}else{
 				println ('in Win')
 			   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app -w 60"

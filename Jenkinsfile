@@ -24,7 +24,8 @@ node {
         // when running in multi-branch job, one must issue this command
         checkout scm
     }
-
+	
+//	
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
             if (isUnix()) {
@@ -42,7 +43,17 @@ node {
 		println ('Ashutosh')	
 		println rc
 			
-			
+// deployment validation for windows only
+	stage('deployment validation') {
+	dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app -c -w 60"
+
+	if (dv != 0) { error 'Deployment Validation failed' }
+
+	}
+
+		
+		
+		
 			// need to pull out assigned username
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -u ${HUB_ORG} -p force-app -w 60"

@@ -46,6 +46,7 @@ node {
 // deployment validation for windows only
 //	stage('deployment validation') {
 	dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c"
+		//force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c
 
 	if (dv != 0) { error 'Deployment Validation failed' }
 

@@ -44,12 +44,12 @@ node {
 		println rc
 			
 // deployment validation for windows only
-	stage('deployment validation') {
-	dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app -c -w 60"
+//	stage('deployment validation') {
+	dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app -w 60 -c"
 
 	if (dv != 0) { error 'Deployment Validation failed' }
 
-	}
+//	}
 
 		
 		

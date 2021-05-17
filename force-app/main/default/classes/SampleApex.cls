@@ -4,6 +4,7 @@ public class SampleApex {
         for(Account acc : Acclist){
             system.debug('Account name: '+acc.Name);
             //adding a comment
+            //Adding 2nd comment
         }
     }
 

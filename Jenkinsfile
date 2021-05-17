@@ -11,7 +11,7 @@ node {
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
 
-    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
+//    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
 	
     println 'KEY IS' 
     println JWT_KEY_CRED_ID
@@ -29,7 +29,9 @@ node {
         stage('Deploye Code') {
             if (isUnix()) {
 		//    export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-		sh returnStatus: true, script: "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
+		k1=sh returnStatus: true, script: "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
+		println ('k1=')	
+		println k1
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 //		    rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile /home/ec2-user/keys_2/server.key --instanceurl ${SFDC_HOST}"
             }else{

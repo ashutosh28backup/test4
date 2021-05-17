@@ -49,7 +49,7 @@ node {
 		//force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c
 
 	if (dv != 0) { error 'Deployment Validation failed' }
-		else{println ('Deployment validtaion succeeded')}
+//		else{println ('Deployment validtaion succeeded')}
 
 //	}
 

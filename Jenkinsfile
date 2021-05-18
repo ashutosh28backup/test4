@@ -68,10 +68,11 @@ node {
 				println('dv=')
 				println(dv)
 				if (dv ==0){
-				 rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
+				 println('Test run failed')
 				}
 				else{
-					println('Test run failed')
+					rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
+					
 				}
 				
 			}

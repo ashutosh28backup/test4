@@ -4,6 +4,7 @@ public class SampleApex {
         for(Account acc : Acclist){
             system.debug('Account name: '+acc.Name);
             //adding a comment
+            Account[] Acclist2=[select id, name from Account Limit 2];
         }
     }
 

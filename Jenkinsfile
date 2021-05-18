@@ -72,7 +72,7 @@ node {
 			  
             //println ( rmsg)
             println('Hello from a Job DSL script!')
-            println(rmsg)
+            //println(rmsg)
         }
     }
 }

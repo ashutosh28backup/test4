@@ -1,6 +1,6 @@
 #commit for 
 # Salesforce DX Project: Next Steps
-New Steps
+New Steps updating changes
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
 

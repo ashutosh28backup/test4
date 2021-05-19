@@ -10,6 +10,9 @@ node {
     def SFDC_HOST = env.SFDC_HOST_DH
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
+	
+	def Jenkinsbuildpath=env.Jenkinsbuildpath
+	def Reportfile=env.Reportfile
 
 //    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
 	
@@ -42,10 +45,14 @@ node {
 
 		println ('Ashutosh')	
 		println rc
-			
-// deployment validation for windows only
+		
+		
+		pmdrun = bat returnStatus: true, script: "\"${pmd}\" -d \"${Jenkinsbuildpath}\" -f html -R "category/apex/design.xml" -reportfile \"${Reportfile}\""	
+
+		
+		// deployment validation for windows only
 //	stage('deployment validation') {
-//	dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c"
+	//dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c"
 		//force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c
 
 //	if (dv != 0) { error 'Deployment Validation failed' }

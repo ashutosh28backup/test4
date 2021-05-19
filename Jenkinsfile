@@ -34,8 +34,10 @@ node {
         checkout scm
     }
 	
-//	
-    withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
+//	PMD run
+	pmdrun = bat returnStatus: true, script: "\"${pmd}\" -d \"${Jenkinsbuildpath}\" -f html -R \"${apexrule}\" -reportfile \"${Reportfile}\""	
+	
+	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
             if (isUnix()) {
 		//    export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
@@ -53,7 +55,7 @@ node {
 		println rc
 		
 		
-		pmdrun = bat returnStatus: true, script: "\"${pmd}\" -d \"${Jenkinsbuildpath}\" -f html -R \"${apexrule}\" -reportfile \"${Reportfile}\""	
+
 
 		
 		// deployment validation for windows only

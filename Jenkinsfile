@@ -11,10 +11,11 @@ node {
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
 	
-	def Jenkinsbuildpath=env.Jenkinsbuildpath
-	def Reportfile=env.Reportfile
-	def apexrule="category/apex/design.xml"
+	def Jenkinsbuildpath = env.Jenkinsbuildpath
+	def Reportfile = env.Reportfile
+	def apexrule = "category/apex/design.xml"
 	
+	println(SFDC_HOST)
 	println(Reportfile)
 	println(apexrule)
 

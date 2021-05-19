@@ -63,17 +63,17 @@ node {
 				println ('in Win')
 			         //rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app -w 60"
 				//rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app/main -w 60"
-				dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
-				sleep(100)
-				println('dv=')
-				println(dv)
-				if (dv ==0){
-				 println('Test run failed')
-				}
-				else{
+				//dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
+				//sleep(100)
+				//println('dv=')
+				//println(dv)
+				//if (dv ==0){
+				// println('Test run failed')
+				//}
+				//else{
 					rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
 					
-				}
+				//}
 				
 			}
 			  

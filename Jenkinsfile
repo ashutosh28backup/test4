@@ -11,12 +11,13 @@ node {
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
 	
-	def Jenkinsbuildpath = "C:\Windows\System32\config\systemprofile\AppData\Local\Jenkins\.jenkins\workspace\jenkinsdev_\force-app\main\default\classes"
-	def Reportfile = "C:\Windows\System32\config\systemprofile\AppData\Local\Jenkins\.jenkins\workspace\pmdreports\report1.html"
+	def Jenkinsbuildpath = env.Jenkinsbuildpath
+	def Reportfile = env.Reportfile
 	def apexrule = "category/apex/design.xml"
 	
 	println(SFDC_HOST)
 	println(Reportfile)
+	println(Jenkinsbuildpath)
 	println(apexrule)
 
 //    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true

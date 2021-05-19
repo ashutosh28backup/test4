@@ -13,6 +13,10 @@ node {
 	
 	def Jenkinsbuildpath=env.Jenkinsbuildpath
 	def Reportfile=env.Reportfile
+	def apexrule="category/apex/design.xml"
+	
+	println(Reportfile)
+	println(apexrule)
 
 //    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
 	
@@ -47,7 +51,7 @@ node {
 		println rc
 		
 		
-		pmdrun = bat returnStatus: true, script: "\"${pmd}\" -d \"${Jenkinsbuildpath}\" -f html -R "category/apex/design.xml" -reportfile \"${Reportfile}\""	
+		pmdrun = bat returnStatus: true, script: "\"${pmd}\" -d \"${Jenkinsbuildpath}\" -f html -R \"${apexrule}\" -reportfile \"${Reportfile}\""	
 
 		
 		// deployment validation for windows only

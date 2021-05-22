@@ -24,7 +24,26 @@ node {
         checkout scm
     }
 	
+
+//	Static code analysis		
+	stage('Static Code Analysis') {
+	SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
 	
+	println('SCA=')
+	println(SCA)
+		
+	if (SCA != 0) { error 'Issues found in code scan' }
+	else{
+		println ('No major issues found in code scan')
+	    }
+	
+	}
+		
+
+
+	
+	
+//	Authorizing SFDX for the environment	
 	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
             if (isUnix()) {
@@ -38,21 +57,6 @@ node {
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }
             if (rc != 0) { error 'hub org authorization failed' }
-
-//	Static code analysis		
-	stage('Static Code Analysis') {
-	//SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
-	SCA=bat returnStatus: true, script: "sfdx scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
-	println('SCA=')
-	println(SCA)
-		
-	if (SCA != 0) { error 'Issues found in code scan' }
-	else{
-		println ('No major issues found in code scan')
-	    }
-	
-	}
-		
 
 
 		

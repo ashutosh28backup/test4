@@ -73,7 +73,7 @@ node {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -u ${HUB_ORG} -p force-app -w 60"
 			}else{
 				println ('in Win')
-			        rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
+			        rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
 							
 				
 			}

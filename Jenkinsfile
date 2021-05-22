@@ -41,7 +41,7 @@ node {
 
 //	Static code analysis		
 	stage('Static Code Analysis') {
-	SCA=bat returnStatus: true, script: "\"${toolbelt}\" sfdx scanner:run --target=.\force-app --outfile=sfdxscanner1.html --format=html"
+	SCA=bat returnStatus: true, script: "\"${toolbelt}\" sfdx scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
 	println('SCA=')
 	println(SCA)
 		

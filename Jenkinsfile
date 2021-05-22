@@ -27,7 +27,7 @@ node {
 
 //	Static code analysis		
 	stage('Static Code Analysis') {
-	SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=\"C:\\WINDOWS\\system32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\ashu3_\\force-app\" --outfile=\"C:\\WINDOWS\\system32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\ashu3_\\sfdxscanner1.html\" --format=html"
+	SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=.\force-app --outfile=sfdxscanner1.html --format=html"
 	
 	println('SCA=')
 	println(SCA)

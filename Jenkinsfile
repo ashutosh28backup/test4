@@ -49,8 +49,18 @@ node {
             }
             if (rc != 0) { error 'hub org authorization failed' }
 
+//	Doing Static code analysis		
+	stage('Static Code Analysis') {
+	SCA=bat returnStatus: true, script: "\"${toolbelt}\" sfdx scanner:run --target=.\force-app --outfile=sfdxscanner1.html --format=html"
+	println('SCA=')
+	println(SCA)
 		
-		
+	if (SCA != 0) { error 'Issues found in code scan' }
+	else{
+		println ('No major issues found in code scan')
+	    }
+	
+	}	
 
 
 		

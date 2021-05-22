@@ -11,16 +11,6 @@ node {
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
 	
-	def Jenkinsbuildpath = "C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\jenkinsdev_\\force-app\\main\\default\\classes"
-	def Reportfile = "C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\pmdreports\\report1.html"
-	def apexrule = "category/apex/design.xml"
-	
-	println(SFDC_HOST)
-	println(Reportfile)
-	println(Jenkinsbuildpath)
-	println(apexrule)
-
-//    def SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
 	
     println 'KEY IS' 
     println JWT_KEY_CRED_ID
@@ -49,18 +39,8 @@ node {
             }
             if (rc != 0) { error 'hub org authorization failed' }
 
-//	Doing Static code analysis		
-	stage('Static Code Analysis') {
-	SCA=bat returnStatus: true, script: "\"${toolbelt}\" sfdx scanner:run --target=.\force-app --outfile=sfdxscanner1.html --format=html"
-	println('SCA=')
-	println(SCA)
 		
-	if (SCA != 0) { error 'Issues found in code scan' }
-	else{
-		println ('No major issues found in code scan')
-	    }
-	
-	}	
+		
 
 
 		

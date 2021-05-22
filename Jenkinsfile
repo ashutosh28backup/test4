@@ -43,7 +43,7 @@ node {
 		println ('k1=')	
 		println k1
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-//		    rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile /home/ec2-user/keys_2/server.key --instanceurl ${SFDC_HOST}"
+
             }else{
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }
@@ -56,7 +56,7 @@ node {
 		
 //	deployment validation running on Windows machine
 	stage('deployment validation') {
-	bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
+	dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
 		
 	if (dv != 0) { error 'Deployment Validation failed' }
 	else{println ('Deployment validtaion succeeded')}

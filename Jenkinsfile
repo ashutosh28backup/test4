@@ -34,8 +34,6 @@ node {
         checkout scm
     }
 	
-//	PMD run
-	//pmdrun = bat returnStatus: true, script: "\"${pmd}\" -d \"${Jenkinsbuildpath}\" -f html -R \"${apexrule}\" -reportfile \"${Reportfile}\""	
 	
 	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
@@ -51,49 +49,35 @@ node {
             }
             if (rc != 0) { error 'hub org authorization failed' }
 
-		println ('Ashutosh')	
-		println rc
 		
 		
 
 
 		
-		// deployment validation for windows only
-//	stage('deployment validation') {
-	//dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c"
-		//force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -c
+//	deployment validation running on Windows machine
+	stage('deployment validation') {
+	bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
+		
+	if (dv != 0) { error 'Deployment Validation failed' }
+	else{println ('Deployment validtaion succeeded')}
 
-//	if (dv != 0) { error 'Deployment Validation failed' }
-//		else{println ('Deployment validtaion succeeded')}
-
-//	}
+	}
 
 		
 		
 		
-			// need to pull out assigned username
+// 	Doing deployment on Windows machine
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -u ${HUB_ORG} -p force-app -w 60"
 			}else{
 				println ('in Win')
-			         //rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app -w 60"
-				//rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app/main -w 60"
-				//dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
-				//sleep(100)
-				//println('dv=')
-				//println(dv)
-				//if (dv ==0){
-				// println('Test run failed')
-				//}
-				//else{
-					rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
-					
-				//}
+			        rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
+							
 				
 			}
 			  
             //println ( rmsg)
-            println('Hello from a Job DSL script!')
+            //println('Hello from a Job DSL script!')
             //println(rmsg)
         }
     }

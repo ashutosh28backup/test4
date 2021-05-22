@@ -28,14 +28,8 @@ node {
 //	Static code analysis		
 	stage('Static Code Analysis') {
 	SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
-	
-	println('SCA=')
-	println(SCA)
-		
 	if (SCA != 0) { error 'Issues found in code scan' }
-	else{
-		println ('No major issues found in code scan')
-	    }
+	else{ println ('No major issues found in code scan') }
 	
 	}
 	

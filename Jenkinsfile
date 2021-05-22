@@ -41,18 +41,19 @@ node {
 	
 //	Authorizing SFDX for the environment	
 	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-        stage('Deploye Code') {
+        stage('Authorization') {
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             
             if (rc != 0) { error 'hub org authorization failed' }
+		else{ Println('Environment Authorized successfully')}
 
 
 		
 //	deployment validation running on Windows machine
 	stage('deployment validation') {
 	dv = bat returnStatus: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
-	println('dv=')
-	println(dv)
+	//println('dv=')
+	//println(dv)
 	if (dv != 0) { error 'Deployment Validation failed' }
 	else{
 		println ('Deployment validtaion succeeded')}
@@ -67,7 +68,7 @@ node {
 	rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
 	if (rmsg != 0) { error 'Deployment Validation failed' }
 	else{
-		println ('Deployment validtaion succeeded')}
+		println ('Deployment succeeded')}
 			}
         }
     }

@@ -56,10 +56,12 @@ node {
 		
 //	deployment validation running on Windows machine
 	stage('deployment validation') {
-	dv = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
-		
+	dv = bat returnStatus: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -m ApexClass -l RunAllTestsInOrg -c"
+	println('dv=')
+	println(dv)
 	if (dv != 0) { error 'Deployment Validation failed' }
-	else{println ('Deployment validtaion succeeded')}
+	else{
+		println ('Deployment validtaion succeeded')}
 
 	}
 

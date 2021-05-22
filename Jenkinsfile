@@ -38,24 +38,12 @@ node {
 	    }
 	
 	}
-		
-
-
-	
 	
 //	Authorizing SFDX for the environment	
 	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
-            if (isUnix()) {
-		//    export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-		k1=sh returnStatus: true, script: "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
-		println ('k1=')	
-		println k1
-                rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-
-            }else{
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-            }
+            
             if (rc != 0) { error 'hub org authorization failed' }
 
 
@@ -73,20 +61,14 @@ node {
 
 		
 		
-		
-// 	Doing deployment on Windows machine
-			if (isUnix()) {
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -u ${HUB_ORG} -p force-app -w 60"
-			}else{
-				println ('in Win')
-			        rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
-							
-				
+// 	Doing deployment from Windows machine
+	stage('deployment to Environment') {
+
+	rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -x manifest/package.xml -w 60"
+	if (rmsg != 0) { error 'Deployment Validation failed' }
+	else{
+		println ('Deployment validtaion succeeded')}
 			}
-			  
-            println ( 'rmsg=')
-            //println('Hello from a Job DSL script!')
-            println(rmsg)
         }
     }
 }

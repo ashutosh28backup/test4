@@ -29,7 +29,7 @@ node {
 	
 	stage('Install SFDX'){
 	    bat "\"C:\\Program Files\\nodejs\\npm\" install --global sfdx-cli"
-    	    bat	"npm install sfdx plugins:install @salesforce/sfdx-scanner"
+    	    bat	"\"C:\\Program Files\\nodejs\\npm\" install sfdx plugins:install @salesforce/sfdx-scanner"
 	}
 //	Authorizing SFDX for the environment	
 	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {

@@ -19,14 +19,16 @@ node {
     println CONNECTED_APP_CONSUMER_KEY
     def toolbelt = tool 'toolbelt'
 
-    cleanWs()
+    
+	cleanWs()
 	
     stage('checkout source') {
         // when running in multi-branch job, one must issue this command
         checkout scm
     }
 	
-
+    bat "npm install --global sfdx-cli"
+    bat	"npm install sfdx plugins:install @salesforce/sfdx-scanner"
 
 	
 //	Authorizing SFDX for the environment	
@@ -41,7 +43,7 @@ node {
 
 	//	Static code analysis		
 	stage('Static Code Analysis') {
-	SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
+	SCA=bat returnStatus: true, script: "sfdx scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
 	if (SCA != 0) { error 'Issues found in code scan' }
 	else{ println ('No major issues found in code scan') }
 	

@@ -27,8 +27,7 @@ node {
         checkout scm
     }
 	
-    bat "npm install --global sfdx-cli"
-    bat	"npm install sfdx plugins:install @salesforce/sfdx-scanner"
+
 
 	
 //	Authorizing SFDX for the environment	
@@ -41,6 +40,9 @@ node {
 	}
 	}
 
+	    bat "npm install --global sfdx-cli"
+    bat	"npm install sfdx plugins:install @salesforce/sfdx-scanner"
+	
 	//	Static code analysis		
 	stage('Static Code Analysis') {
 	SCA=bat returnStatus: true, script: "sfdx scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"

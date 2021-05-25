@@ -28,7 +28,7 @@ node {
     }
 	
 	stage('Install SFDX'){
-	    bat "npm install --global sfdx-cli"
+	    bat "\"C:\\Program Files\\nodejs\\npm\" install --global sfdx-cli"
     	    bat	"npm install sfdx plugins:install @salesforce/sfdx-scanner"
 	}
 //	Authorizing SFDX for the environment	

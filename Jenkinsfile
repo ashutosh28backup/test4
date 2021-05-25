@@ -27,10 +27,10 @@ node {
         checkout scm
     }
 	
-
+	stage('Install SFDX'){
 	    bat "npm install --global sfdx-cli"
     bat	"npm install sfdx plugins:install @salesforce/sfdx-scanner"
-	
+	}
 //	Authorizing SFDX for the environment	
 	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Authorization') {

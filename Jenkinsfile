@@ -27,13 +27,7 @@ node {
     }
 	
 
-//	Static code analysis		
-	stage('Static Code Analysis') {
-	SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
-	if (SCA != 0) { error 'Issues found in code scan' }
-	else{ println ('No major issues found in code scan') }
-	
-	}
+
 	
 //	Authorizing SFDX for the environment	
 	withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
@@ -45,6 +39,15 @@ node {
 	}
 	}
 
+	//	Static code analysis		
+	stage('Static Code Analysis') {
+	SCA=bat returnStatus: true, script: "\"${toolbelt}\" scanner:run --target=.\\force-app --outfile=sfdxscanner1.html --format=html"
+	if (SCA != 0) { error 'Issues found in code scan' }
+	else{ println ('No major issues found in code scan') }
+	
+	}
+	
+	
 		
 //	deployment validation running on Windows machine
 	stage('deployment validation') {
